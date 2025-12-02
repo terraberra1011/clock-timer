@@ -10,18 +10,23 @@ function updateClock() {
 
 let timerInterval = null; 
 let remainingSeconds = 0;
+let totalSeconds = 0;
 
 function startTimer () {
      if (timerInterval !=null) return; 
 
-     const minutes = parseInt(document.getElementById("minutes").value) || 0;
-     const seconds = parseInt(document.getElementById("seconds").value) ||0;
+     // Only set new time if timer is at 0 (not paused)
+     if (remainingSeconds === 0) {
+         const minutes = parseInt(document.getElementById("minutes").value) || 0;
+         const seconds = parseInt(document.getElementById("seconds").value) ||0;
 
-     remainingSeconds = minutes * 60 + seconds;
+         remainingSeconds = minutes * 60 + seconds;
+         totalSeconds = remainingSeconds;
 
-     if (remainingSeconds <= 0) {
-        alert("Please enter a valid time.");
-        return;
+         if (remainingSeconds <= 0) {
+            alert("Please enter a valid time.");
+            return;
+         }
      }
 
      timerInterval = setInterval(updateTimer, 1000);
@@ -33,6 +38,17 @@ function updateTimer() {
     const secs = String(remainingSeconds % 60).padStart(2, "0");
 
     document.getElementById("timer-display").textContent = `${mins}:${secs}`;
+
+    const progressCircle = document.getElementById("progress-circle");
+    if (totalSeconds > 0) {
+        const elapsed = totalSeconds - remainingSeconds;
+        const fraction = elapsed / totalSeconds;
+        const angle = fraction * 360;
+
+        progressCircle.style.setProperty("--progress", `${angle}deg`);
+    } else {
+        progressCircle.style.setProperty("--progress", "0deg");
+    }
 
     if (remainingSeconds === 0) {
         clearInterval(timerInterval);
@@ -53,7 +69,12 @@ function pauseTimer() {
 function resetTimer() {
     pauseTimer();
     remainingSeconds = 0;
+    totalSeconds = 0;
+
     document.getElementById("timer-display").textContent = "00:00";   
+
+    const progressCircle = document.getElementById("progress-circle");
+    progressCircle.style.setProperty("--progress", "0deg");
 }
 
 document.getElementById("start-btn").addEventListener("click", startTimer);

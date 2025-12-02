@@ -49,3 +49,30 @@ button {
   font-size: 16px;
   cursor: pointer;
 }
+
+.progress-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.progress-circle {
+  --progress: 0deg;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: conic-gradient(
+    #4caf50 var(--progress),
+    #e0e0e0 0deg
+  );
+  position: relative;
+}
+
+.progress-circle span#timer-display {
+  position: absolute;
+  font-size: 32px;
+  font-weight: bold;
+}
