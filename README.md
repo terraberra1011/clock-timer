@@ -39,3 +39,6 @@ A simple web application featuring a live digital clock and an interactive count
 - Added visual countdown timer with green progress ring
 - Implemented pause/resume functionality
 - Added reset feature
+
+12-03-25
+-added a sound clip to play when timer is complete
