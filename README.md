@@ -29,3 +29,13 @@ A simple web application featuring a live digital clock and an interactive count
 - `index.html` - Main HTML structure
 - `style.css` - Styling with circular progress indicator
 - `script.js` - Timer logic and clock functionality
+
+## Update Log
+
+**12-01-25**
+- Initial clock-timer code uploaded
+
+**12-02-25**
+- Added visual countdown timer with green progress ring
+- Implemented pause/resume functionality
+- Added reset feature
