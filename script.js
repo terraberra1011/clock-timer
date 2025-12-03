@@ -12,6 +12,18 @@ let timerInterval = null;
 let remainingSeconds = 0;
 let totalSeconds = 0;
 
+function playTimerSound(){
+    const audio = document.getElementById("timer-sound");
+
+    if (!audio) return;
+
+    audio.currentTime = 0;
+
+    audio.play().catch((error) => {
+        console.warn("Timer sound could not be played", error);
+    });
+}
+
 function startTimer () {
      if (timerInterval !=null) return; 
 
@@ -51,6 +63,8 @@ function updateTimer() {
     }
 
     if (remainingSeconds === 0) {
+        playTimerSound();
+
         clearInterval(timerInterval);
         timerInterval = null;
         return;
