@@ -44,7 +44,9 @@ A simple web application featuring a live digital clock and an interactive count
 - Implemented pause/resume functionality
 - Added reset feature
 
+**12-03-25**
+- Added a sound clip to play when timer is complete
+
 **12-05-25**
-- Added alarm sound that plays when timer reaches zero
-- Implemented volume control slider for alarm sound
+- Added volume control slider for alarm sound
 - Fixed volume slider step attribute for smooth adjustment
