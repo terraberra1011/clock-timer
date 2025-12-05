@@ -95,5 +95,14 @@ document.getElementById("start-btn").addEventListener("click", startTimer);
 document.getElementById("pause-btn").addEventListener("click", pauseTimer);
 document.getElementById("reset-btn").addEventListener("click", resetTimer);
 
+const volumeSlider = document.getElementById("volume-slider");
+const timerSound = document.getElementById("timer-sound");
+
+timerSound.volume = volumeSlider.value;
+
+volumeSlider.addEventListener("input", () => {
+    timerSound.volume = volumeSlider.value;
+});
+
 setInterval(updateClock, 1000);
 updateClock(); 

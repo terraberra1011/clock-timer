@@ -13,6 +13,8 @@ A simple web application featuring a live digital clock and an interactive count
 - **Visual Progress Ring**: Green circular progress indicator that fills as time counts down
 - **Start/Pause/Resume**: Start the timer, pause it, and resume from where you left off
 - **Reset**: Clear the timer and reset the progress ring
+- **Alarm Sound**: Plays audio notification when timer reaches zero
+- **Volume Control**: Adjustable volume slider for alarm sound
 - Input validation to ensure valid time entries
 
 ## How to Use
@@ -20,9 +22,11 @@ A simple web application featuring a live digital clock and an interactive count
 1. **Clock**: Simply view the current time displayed at the top
 2. **Timer**:
    - Enter the desired minutes and seconds
+   - Adjust the volume slider to set alarm sound level
    - Click **Start** to begin the countdown
    - Click **Pause** to pause (timer will resume from paused time when started again)
    - Click **Reset** to clear the timer and start over
+   - When timer reaches zero, an alarm sound will play
 
 ## Files
 
@@ -39,3 +43,8 @@ A simple web application featuring a live digital clock and an interactive count
 - Added visual countdown timer with green progress ring
 - Implemented pause/resume functionality
 - Added reset feature
+
+**12-05-25**
+- Added alarm sound that plays when timer reaches zero
+- Implemented volume control slider for alarm sound
+- Fixed volume slider step attribute for smooth adjustment

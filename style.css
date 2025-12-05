@@ -76,3 +76,14 @@ button {
   font-size: 32px;
   font-weight: bold;
 }
+
+.volume-control {
+  text-align: center;
+  margin: 15px 0;
+  font-size:16px;
+}
+
+#volume-slider {
+  width: 150px;
+  margin-left: 10px;
+}
