@@ -104,5 +104,40 @@ volumeSlider.addEventListener("input", () => {
     timerSound.volume = volumeSlider.value;
 });
 
+const volumeIcon = document.getElementById("volume-icon");
+let lastVolume = 1;
+
+function updateVolumeIcon(volume) {
+    if (volume == 0) {
+        volumeIcon.textContent = "🔇";
+    } else if (volume <= 0.33) {
+        volumeIcon.textContent = "🔈";
+    }else if (volume <= 0.66) {
+        volumeIcon.textContent = "🔉";
+    } else {
+        volumeIcon.textContent = "🔊";
+    }
+}
+
+volumeSlider.addEventListener("input", () => {
+    const vol = Number(volumeSlider.value);
+    timerSound.volume = vol;
+    updateVolumeIcon(vol);
+});
+
+volumeIcon.addEventListener("click", () => {
+    if (timerSound.volume > 0) {
+        lastVolume = timerSound.volume;
+
+        timerSound.volume = 0;
+        volumeSlider.value = 0;
+        updateVolumeIcon(0);
+    } else {
+        timerSound.volume = lastVolume;
+        volumeSlider.value = lastVolume;
+        updateVolumeIcon(lastVolume);
+    }
+});
+
 setInterval(updateClock, 1000);
 updateClock(); 

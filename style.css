@@ -87,3 +87,26 @@ button {
   width: 150px;
   margin-left: 10px;
 }
+
+.volume-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:12px;
+  margin: 15px 0;
+}
+
+.volume-icon {
+  font-size: 26px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.volume-icon:hover {
+  transform: scale(1.15);
+}
+
+#volume-slider {
+  width: 150px;
+}

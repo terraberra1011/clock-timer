@@ -14,7 +14,8 @@ A simple web application featuring a live digital clock and an interactive count
 - **Start/Pause/Resume**: Start the timer, pause it, and resume from where you left off
 - **Reset**: Clear the timer and reset the progress ring
 - **Alarm Sound**: Plays audio notification when timer reaches zero
-- **Volume Control**: Adjustable volume slider for alarm sound
+- **Volume Control**: Adjustable volume slider with dynamic icon indicator
+- **Mute Toggle**: Click the volume icon to mute/unmute sound
 - Input validation to ensure valid time entries
 
 ## How to Use
@@ -22,7 +23,8 @@ A simple web application featuring a live digital clock and an interactive count
 1. **Clock**: Simply view the current time displayed at the top
 2. **Timer**:
    - Enter the desired minutes and seconds
-   - Adjust the volume slider to set alarm sound level
+   - Adjust the volume slider to set alarm sound level (volume icon changes based on level)
+   - Click the volume icon to quickly mute/unmute
    - Click **Start** to begin the countdown
    - Click **Pause** to pause (timer will resume from paused time when started again)
    - Click **Reset** to clear the timer and start over
@@ -50,3 +52,8 @@ A simple web application featuring a live digital clock and an interactive count
 **12-05-25**
 - Added volume control slider for alarm sound
 - Fixed volume slider step attribute for smooth adjustment
+
+**12-08-25**
+- Added dynamic volume icon that changes based on volume level (🔇 🔈 🔉 🔊)
+- Implemented clickable volume icon for quick mute/unmute toggle
+- Enhanced volume control UI with icon hover effects
