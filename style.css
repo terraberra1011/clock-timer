@@ -110,3 +110,37 @@ button {
 #volume-slider {
   width: 150px;
 }
+
+.sound-select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.sound-select select {
+  padding: 4px 8px;
+  font-size: 15px;
+}
+
+.sound-test {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#test-sound-btn {
+  padding: 8px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+#test-sound-btn:hover {
+  background-color: #449d48;
+}

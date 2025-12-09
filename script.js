@@ -97,12 +97,34 @@ document.getElementById("reset-btn").addEventListener("click", resetTimer);
 
 const volumeSlider = document.getElementById("volume-slider");
 const timerSound = document.getElementById("timer-sound");
+const soundThemeSelect = document.getElementById("sound-theme");
+
+const soundFiles = {
+    scream: "alarm-sound.mp3",
+    bell: "Taco-bell-sound.mp3",
+    goldfish: "the-snack-that-smiles-back.mp3"
+};
+
+function updateSoundSource() {
+    const theme = soundThemeSelect.value;
+    const fileName = soundFiles[theme] || soundFiles.default;
+    timerSound.src = fileName;
+    timerSound.load();
+}
+soundThemeSelect.addEventListener("change", () => {
+    updateSoundSource();
+});
 
 timerSound.volume = volumeSlider.value;
-
 volumeSlider.addEventListener("input", () => {
     timerSound.volume = volumeSlider.value;
 });
+
+soundThemeSelect.addEventListener("change", () => {
+    updateSoundSource();
+});
+
+updateSoundSource();
 
 const volumeIcon = document.getElementById("volume-icon");
 let lastVolume = 1;
@@ -137,6 +159,15 @@ volumeIcon.addEventListener("click", () => {
         volumeSlider.value = lastVolume;
         updateVolumeIcon(lastVolume);
     }
+});
+
+const testSoundBtn = document.getElementById("test-sound-btn");
+testSoundBtn.addEventListener("click", () => {
+    updateSoundSource();
+    timerSound.currentTime = 0;
+    timerSound.play().catch((error) => {
+        console.warn("Unable to play test sound:", error);
+    });
 });
 
 setInterval(updateClock, 1000);

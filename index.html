@@ -30,7 +30,17 @@
                     <span id="timer-display">00:00</span>
                 </div>
             </div>
-
+            <div class="sound-select">
+                <label for="sound-theme">Sound:</label>
+                <select id="sound-theme">
+                    <option value="scream">CaseOh</option>
+                    <option value="bell">Taco Bell</option>
+                    <option value="goldfish">Goldfish</option>
+                </select>
+            </div>
+            <div class="sound-select">
+                <button id="test-sound-btn">Test Sound</button>
+            </div>
             <div class="volume-control">
                 <span id="volume-icon" class="valume-icon">🔊</span>
 
@@ -53,7 +63,7 @@
     </div>
 
     <audio id="timer-sound" src="alarm-sound.mp3" preload="auto"></audio>
-    
     <script src="script.js"></script>
+
 </body>
 </html>

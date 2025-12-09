@@ -13,7 +13,8 @@ A simple web application featuring a live digital clock and an interactive count
 - **Visual Progress Ring**: Green circular progress indicator that fills as time counts down
 - **Start/Pause/Resume**: Start the timer, pause it, and resume from where you left off
 - **Reset**: Clear the timer and reset the progress ring
-- **Alarm Sound**: Plays audio notification when timer reaches zero
+- **Alarm Sound**: Plays audio notification when timer reaches zero with selectable sound themes
+- **Sound Themes**: Choose from multiple alarm sounds (CaseOh, Taco Bell, Goldfish)
 - **Volume Control**: Adjustable volume slider with dynamic icon indicator
 - **Mute Toggle**: Click the volume icon to mute/unmute sound
 - Input validation to ensure valid time entries
@@ -23,12 +24,13 @@ A simple web application featuring a live digital clock and an interactive count
 1. **Clock**: Simply view the current time displayed at the top
 2. **Timer**:
    - Enter the desired minutes and seconds
+   - Select your preferred alarm sound from the dropdown menu
    - Adjust the volume slider to set alarm sound level (volume icon changes based on level)
    - Click the volume icon to quickly mute/unmute
    - Click **Start** to begin the countdown
    - Click **Pause** to pause (timer will resume from paused time when started again)
    - Click **Reset** to clear the timer and start over
-   - When timer reaches zero, an alarm sound will play
+   - When timer reaches zero, your selected alarm sound will play
 
 ## Files
 
@@ -57,3 +59,8 @@ A simple web application featuring a live digital clock and an interactive count
 - Added dynamic volume icon that changes based on volume level (🔇 🔈 🔉 🔊)
 - Implemented clickable volume icon for quick mute/unmute toggle
 - Enhanced volume control UI with icon hover effects
+
+**12-09-25**
+- Added sound theme selector with multiple alarm sound options
+- Fixed digital clock functionality issue (corrected audio load method)
+- Added new alarm sounds: CaseOh, Taco Bell, and Goldfish
