@@ -67,9 +67,9 @@ A simple web application featuring a live digital clock and an interactive count
 - Added sound theme selector with multiple alarm sound options
 - Fixed digital clock functionality issue (corrected audio load method)
 - Added new alarm sounds: CaseOh, Taco Bell, and Goldfish
+- Added alarm sound test button
 
 **12-15-25**
 - Added real-time audio waveform visualization with color-coded themes
-- Implemented "Test Sound" button to preview alarm sounds
 - Fixed waveform display bugs (variable initialization issues)
 - Enhanced audio visualization using Web Audio API
