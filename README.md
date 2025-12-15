@@ -15,6 +15,8 @@ A simple web application featuring a live digital clock and an interactive count
 - **Reset**: Clear the timer and reset the progress ring
 - **Alarm Sound**: Plays audio notification when timer reaches zero with selectable sound themes
 - **Sound Themes**: Choose from multiple alarm sounds (CaseOh, Taco Bell, Goldfish)
+- **Waveform Visualization**: Real-time audio waveform display with color-coded themes
+- **Test Sound Button**: Preview alarm sounds before starting the timer
 - **Volume Control**: Adjustable volume slider with dynamic icon indicator
 - **Mute Toggle**: Click the volume icon to mute/unmute sound
 - Input validation to ensure valid time entries
@@ -25,12 +27,13 @@ A simple web application featuring a live digital clock and an interactive count
 2. **Timer**:
    - Enter the desired minutes and seconds
    - Select your preferred alarm sound from the dropdown menu
+   - Click **Test Sound** to preview the selected alarm
    - Adjust the volume slider to set alarm sound level (volume icon changes based on level)
    - Click the volume icon to quickly mute/unmute
    - Click **Start** to begin the countdown
    - Click **Pause** to pause (timer will resume from paused time when started again)
    - Click **Reset** to clear the timer and start over
-   - When timer reaches zero, your selected alarm sound will play
+   - When timer reaches zero, your selected alarm sound will play with real-time waveform visualization
 
 ## Files
 
@@ -64,3 +67,9 @@ A simple web application featuring a live digital clock and an interactive count
 - Added sound theme selector with multiple alarm sound options
 - Fixed digital clock functionality issue (corrected audio load method)
 - Added new alarm sounds: CaseOh, Taco Bell, and Goldfish
+
+**12-15-25**
+- Added real-time audio waveform visualization with color-coded themes
+- Implemented "Test Sound" button to preview alarm sounds
+- Fixed waveform display bugs (variable initialization issues)
+- Enhanced audio visualization using Web Audio API

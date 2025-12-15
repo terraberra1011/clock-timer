@@ -98,6 +98,98 @@ document.getElementById("reset-btn").addEventListener("click", resetTimer);
 const volumeSlider = document.getElementById("volume-slider");
 const timerSound = document.getElementById("timer-sound");
 const soundThemeSelect = document.getElementById("sound-theme");
+let audioContext = null;
+let analyser = null;
+let dataArray = null;
+let bufferLength = 0;
+let waveformAnimationId = null;
+
+const waveformCanvas = document.getElementById("sound-waveform");
+const waveformCtx = waveformCanvas.getContext("2d");
+let currentWaveFormColor = "#2196f3";
+
+function setupAudioContext() {
+  if (audioContext) return;
+
+  audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+  const source = audioContext.createMediaElementSource(timerSound);
+
+  analyser = audioContext.createAnalyser();
+  bufferLength = analyser.fftSize;
+  dataArray = new Uint8Array(bufferLength);
+
+  source.connect(analyser);
+  analyser.connect(audioContext.destination);
+}
+
+function drawWaveform() {
+  if (!analyser) return;
+
+  waveformAnimationId = requestAnimationFrame(drawWaveform);
+
+  analyser.getByteTimeDomainData(dataArray);
+
+  const width = waveformCanvas.width;
+  const height = waveformCanvas.height;
+
+  waveformCtx.fillStyle = "#ffffff";
+  waveformCtx.fillRect(0, 0, width, height);
+
+  waveformCtx.lineWidth = 2;
+  waveformCtx.strokeStyle = currentWaveFormColor; 
+  waveformCtx.beginPath();
+
+  const sliceWidth = width / bufferLength;
+  let x = 0;
+
+  for (let i = 0; i < bufferLength; i++) {
+    const v = dataArray[i] / 128.0; 
+    const y = (v * height) / 2;    
+    if (i === 0) {
+      waveformCtx.moveTo(x, y);
+    } else {
+      waveformCtx.lineTo(x, y);
+    }
+    x += sliceWidth;
+  }
+  waveformCtx.stroke();
+}
+
+function startWaveform() {
+  setupAudioContext();
+
+  if (audioContext.state === "suspended") {
+    audioContext.resume();
+  }
+
+  if (!waveformAnimationId) {
+    drawWaveform();
+  }
+}
+
+function stopWaveform() {
+  if (waveformAnimationId) {
+    cancelAnimationFrame(waveformAnimationId);
+    waveformAnimationId = null;
+  }
+
+  const width = waveformCanvas.width;
+  const height = waveformCanvas.height;
+  waveformCtx.clearRect(0, 0, width, height);
+}
+
+timerSound.addEventListener("play", () => {
+  startWaveform();
+});
+
+timerSound.addEventListener("pause", () => {
+  stopWaveform();
+});
+
+timerSound.addEventListener("ended", () => {
+  stopWaveform();
+});
 
 const soundFiles = {
     scream: "alarm-sound.mp3",
@@ -105,11 +197,18 @@ const soundFiles = {
     goldfish: "the-snack-that-smiles-back.mp3"
 };
 
+const waveFormColors = {
+    scream: "#2196f3",
+    bell: "#9c27b0",
+    goldfish: "#e07c0aff"
+}
+
 function updateSoundSource() {
     const theme = soundThemeSelect.value;
     const fileName = soundFiles[theme] || soundFiles.default;
     timerSound.src = fileName;
     timerSound.load();
+    currentWaveFormColor = waveFormColors[theme] || waveFormColors.scream;
 }
 soundThemeSelect.addEventListener("change", () => {
     updateSoundSource();

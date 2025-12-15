@@ -144,3 +144,17 @@ button {
 #test-sound-btn:hover {
   background-color: #449d48;
 }
+
+.sound-waveform-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 20px;
+}
+
+#sound-waveform {
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  max-width: 320px;
+  width: 100%;
+}
