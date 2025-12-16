@@ -1,6 +1,6 @@
 # Digital Clock & Timer
 
-A simple web application featuring a live digital clock and an interactive countdown timer with visual progress indicator.
+A simple web app featuring a live digital clock and an interactive countdown timer with a progress ring and audio visualizer (waveform or frequency bars).
 
 ## Features
 
@@ -15,7 +15,9 @@ A simple web application featuring a live digital clock and an interactive count
 - **Reset**: Clear the timer and reset the progress ring
 - **Alarm Sound**: Plays audio notification when timer reaches zero with selectable sound themes
 - **Sound Themes**: Choose from multiple alarm sounds (CaseOh, Taco Bell, Goldfish)
-- **Waveform Visualization**: Real-time audio waveform display with color-coded themes
+- **Visualizer Modes**: Real-time audio visualization with color-coded themes
+   - Waveform (time-domain)
+   - Frequency Bars (spectrum)
 - **Test Sound Button**: Preview alarm sounds before starting the timer
 - **Volume Control**: Adjustable volume slider with dynamic icon indicator
 - **Mute Toggle**: Click the volume icon to mute/unmute sound
@@ -27,19 +29,31 @@ A simple web application featuring a live digital clock and an interactive count
 2. **Timer**:
    - Enter the desired minutes and seconds
    - Select your preferred alarm sound from the dropdown menu
+   - Choose a visualizer mode (WaveForm or Frequency Bars)
    - Click **Test Sound** to preview the selected alarm
    - Adjust the volume slider to set alarm sound level (volume icon changes based on level)
    - Click the volume icon to quickly mute/unmute
    - Click **Start** to begin the countdown
    - Click **Pause** to pause (timer will resume from paused time when started again)
    - Click **Reset** to clear the timer and start over
-   - When timer reaches zero, your selected alarm sound will play with real-time waveform visualization
+   - When timer reaches zero, your selected alarm sound will play with real-time visualization
+
+## Run Locally
+
+- Simply open `index.html` in a modern browser.
+- Optional: use VS Code’s Live Server for auto-reload.
+
+## Troubleshooting
+
+- Blank canvas: click anywhere or press Test Sound. Browsers require a user gesture before starting the AudioContext.
+- No audio: ensure the system volume isn’t muted and the page tab is allowed to autoplay after interaction.
+- Visualization not switching: use the Visualizer dropdown; the canvas clears and rerenders when the mode changes.
 
 ## Files
 
 - `index.html` - Main HTML structure
-- `style.css` - Styling with circular progress indicator
-- `script.js` - Timer logic and clock functionality
+- `style.css` - Styling with circular progress indicator and layout
+- `script.js` - Clock, timer logic, audio, and visualizer
 
 ## Update Log
 
@@ -73,3 +87,8 @@ A simple web application featuring a live digital clock and an interactive count
 - Added real-time audio waveform visualization with color-coded themes
 - Fixed waveform display bugs (variable initialization issues)
 - Enhanced audio visualization using Web Audio API
+
+**12-16-25**
+- Refactored visualizer loop for stability and performance
+- Added Frequency Bars visualizer mode and mode switcher
+- Fixed variable name typos and duplicate listeners

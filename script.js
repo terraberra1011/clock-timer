@@ -12,6 +12,15 @@ let timerInterval = null;
 let remainingSeconds = 0;
 let totalSeconds = 0;
 
+const vizSelect = document.getElementById("viz-select");
+let vizMode = "waveform";
+
+vizSelect.addEventListener("change", () => {
+  vizMode = vizSelect.value;
+
+  waveformCtx.clearRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+});
+
 function playTimerSound(){
     const audio = document.getElementById("timer-sound");
 
@@ -106,7 +115,7 @@ let waveformAnimationId = null;
 
 const waveformCanvas = document.getElementById("sound-waveform");
 const waveformCtx = waveformCanvas.getContext("2d");
-let currentWaveFormColor = "#2196f3";
+let currentWaveformColor = "#2196f3";
 
 function setupAudioContext() {
   if (audioContext) return;
@@ -116,17 +125,15 @@ function setupAudioContext() {
   const source = audioContext.createMediaElementSource(timerSound);
 
   analyser = audioContext.createAnalyser();
-  bufferLength = analyser.fftSize;
+  bufferLength = analyser.frequencyBinCount;
   dataArray = new Uint8Array(bufferLength);
 
   source.connect(analyser);
   analyser.connect(audioContext.destination);
 }
 
-function drawWaveform() {
+function drawWaveformFrame() {
   if (!analyser) return;
-
-  waveformAnimationId = requestAnimationFrame(drawWaveform);
 
   analyser.getByteTimeDomainData(dataArray);
 
@@ -137,23 +144,62 @@ function drawWaveform() {
   waveformCtx.fillRect(0, 0, width, height);
 
   waveformCtx.lineWidth = 2;
-  waveformCtx.strokeStyle = currentWaveFormColor; 
+  waveformCtx.strokeStyle = currentWaveformColor;
   waveformCtx.beginPath();
 
   const sliceWidth = width / bufferLength;
   let x = 0;
 
   for (let i = 0; i < bufferLength; i++) {
-    const v = dataArray[i] / 128.0; 
-    const y = (v * height) / 2;    
-    if (i === 0) {
-      waveformCtx.moveTo(x, y);
-    } else {
-      waveformCtx.lineTo(x, y);
-    }
+    const v = dataArray[i] / 128.0;
+    const y = (v * height) / 2;
+
+    if (i === 0) waveformCtx.moveTo(x, y);
+    else waveformCtx.lineTo(x, y);
+
     x += sliceWidth;
   }
+
   waveformCtx.stroke();
+}
+
+function drawFrequencyBarsFrame() {
+  if (!analyser) return;
+
+  analyser.getByteFrequencyData(dataArray);
+
+  const width = waveformCanvas.width;
+  const height = waveformCanvas.height;
+
+  waveformCtx.fillStyle = "#ffffff";
+  waveformCtx.fillRect(0, 0, width, height);
+
+  const barCount = 40;
+  const step = Math.max(1, Math.floor(bufferLength / barCount));
+  const barWidth = width / barCount;
+
+  for (let i = 0; i < barCount; i++) {
+    const value = dataArray[i * step] || 0;
+    const barHeight = (value / 255) * height;
+
+    const x = i * barWidth;
+    const y = height - barHeight;
+
+    waveformCtx.fillStyle = currentWaveformColor;
+    waveformCtx.fillRect(x + 1, y, barWidth - 2, barHeight);
+  }
+}
+
+function drawWaveformOrBars() {
+  if (!analyser) return;
+
+  waveformAnimationId = requestAnimationFrame(drawWaveformOrBars);
+
+  if (vizMode === "bars") {
+    drawFrequencyBarsFrame();
+  } else {
+    drawWaveformFrame();
+  }
 }
 
 function startWaveform() {
@@ -164,7 +210,7 @@ function startWaveform() {
   }
 
   if (!waveformAnimationId) {
-    drawWaveform();
+    drawWaveformOrBars();
   }
 }
 
@@ -208,10 +254,10 @@ function updateSoundSource() {
     const fileName = soundFiles[theme] || soundFiles.default;
     timerSound.src = fileName;
     timerSound.load();
-    currentWaveFormColor = waveFormColors[theme] || waveFormColors.scream;
+  currentWaveformColor = waveFormColors[theme] || waveFormColors.scream;
 }
 soundThemeSelect.addEventListener("change", () => {
-    updateSoundSource();
+  updateSoundSource();
 });
 
 timerSound.volume = volumeSlider.value;
@@ -219,9 +265,7 @@ volumeSlider.addEventListener("input", () => {
     timerSound.volume = volumeSlider.value;
 });
 
-soundThemeSelect.addEventListener("change", () => {
-    updateSoundSource();
-});
+// (already added above) avoid duplicate listener
 
 updateSoundSource();
 

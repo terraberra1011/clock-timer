@@ -158,3 +158,17 @@ button {
   max-width: 320px;
   width: 100%;
 }
+
+.viz-mode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8ps;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.viz-mode select {
+  padding: 4px 8px;
+  font-size: 15px;
+}
