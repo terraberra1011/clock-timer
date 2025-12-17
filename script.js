@@ -21,6 +21,29 @@ vizSelect.addEventListener("change", () => {
   waveformCtx.clearRect(0, 0, waveformCanvas.width, waveformCanvas.height);
 });
 
+document.addEventListener("keydown", (e) => {
+  const tagName = document.activeElement.tagName.toLowerCase();
+  const isTypingField =
+    tagName === "input" || tagName === "textarea" || tagName === "select";
+  if (isTypingField) return;
+
+  const key = e.key.toLowerCase();
+
+  if (key === "w") {
+    vizMode = "waveform";
+    vizSelect.value = "waveform";
+  }
+
+  if (key === "b") {
+    vizMode = "bars";
+    vizSelect.value = "bars";
+  }
+
+  if (key === "w" || key === "b") {
+    waveformCtx.clearRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+  }
+});
+
 function playTimerSound(){
     const audio = document.getElementById("timer-sound");
 
