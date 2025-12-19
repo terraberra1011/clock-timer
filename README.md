@@ -30,6 +30,7 @@ A simple web app featuring a live digital clock and an interactive countdown tim
    - Enter the desired minutes and seconds
    - Select your preferred alarm sound from the dropdown menu
    - Choose a visualizer mode (WaveForm or Frequency Bars)
+   - **Keyboard Shortcuts**: Press **W** for Waveform or **B** for Bars to quickly switch visualizer modes
    - Click **Test Sound** to preview the selected alarm
    - Adjust the volume slider to set alarm sound level (volume icon changes based on level)
    - Click the volume icon to quickly mute/unmute
@@ -92,3 +93,10 @@ A simple web app featuring a live digital clock and an interactive countdown tim
 - Refactored visualizer loop for stability and performance
 - Added Frequency Bars visualizer mode and mode switcher
 - Fixed variable name typos and duplicate listeners
+
+**12-17-25**
+- Fixed keyboard shortcuts for visualizer switching (W for waveform, B for bars)
+- Corrected typos preventing keyboard controls from working properly
+**12-19-25**
+- Code refinements and bug fixes
+- Enhanced visualizer performance and stability

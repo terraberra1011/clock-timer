@@ -208,7 +208,11 @@ function drawFrequencyBarsFrame() {
     const x = i * barWidth;
     const y = height - barHeight;
 
-    waveformCtx.fillStyle = currentWaveformColor;
+    const gradient = waveformCtx.createLinearGradient(0, y, 0, height);
+    gradient.addColorStop(0, "#ffffff");
+    gradient.addColorStop(0.4, currentWaveformColor);
+    gradient.addColorStop(1, "#000000")
+    waveformCtx.fillStyle = gradient;
     waveformCtx.fillRect(x + 1, y, barWidth - 2, barHeight);
   }
 }
