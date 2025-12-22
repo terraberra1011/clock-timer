@@ -138,7 +138,15 @@ let waveformAnimationId = null;
 
 const waveformCanvas = document.getElementById("sound-waveform");
 const waveformCtx = waveformCanvas.getContext("2d");
+
+const barGradientPalettes = {
+  scream: ["#b3e5ff", "#2196f3", "#0d47a1"],
+  bell: ["#f0b3ff", "#9c27b0", "#4a148c"],
+  goldfish: ["#ffd8a8", "#ff9800", "#e65100"]
+}
+
 let currentWaveformColor = "#2196f3";
+let currentBarPalette = barGradientPalettes.scream;
 
 function setupAudioContext() {
   if (audioContext) return;
@@ -209,11 +217,13 @@ function drawFrequencyBarsFrame() {
     const y = height - barHeight;
 
     const gradient = waveformCtx.createLinearGradient(0, y, 0, height);
-    gradient.addColorStop(0, "#ffffff");
-    gradient.addColorStop(0.4, currentWaveformColor);
-    gradient.addColorStop(1, "#000000")
+
+    gradient.addColorStop(0, currentBarPalette[0]);  
+    gradient.addColorStop(0.5, currentBarPalette[1]); 
+    gradient.addColorStop(1, currentBarPalette[2]); 
+
     waveformCtx.fillStyle = gradient;
-    waveformCtx.fillRect(x + 1, y, barWidth - 2, barHeight);
+    waveformCtx.fillRect(x + 1, y, barWidth - 2, barHeight);``
   }
 }
 
@@ -282,6 +292,7 @@ function updateSoundSource() {
     timerSound.src = fileName;
     timerSound.load();
   currentWaveformColor = waveFormColors[theme] || waveFormColors.scream;
+  currentBarPalette = barGradientPalettes[theme] || barGradientPalettes.scream;
 }
 soundThemeSelect.addEventListener("change", () => {
   updateSoundSource();

@@ -97,6 +97,12 @@ A simple web app featuring a live digital clock and an interactive countdown tim
 **12-17-25**
 - Fixed keyboard shortcuts for visualizer switching (W for waveform, B for bars)
 - Corrected typos preventing keyboard controls from working properly
-**12-19-25**
+
+**12-22-25**
+- Enhanced frequency bars visualizer with custom gradient color palettes
+- Added theme-specific gradient colors for each alarm sound (CaseOh: blue gradient, Taco Bell: purple gradient, Goldfish: orange gradient)
+- Improved frequency bars visualization rendering with smooth multi-color gradients
+- Fixed critical bug where barGradientPalettes was referenced before definition
+- Updated bar gradient palettes to sync with sound theme selection
 - Code refinements and bug fixes
 - Enhanced visualizer performance and stability
