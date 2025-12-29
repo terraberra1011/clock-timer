@@ -145,6 +145,14 @@ const barGradientPalettes = {
   goldfish: ["#ffd8a8", "#ff9800", "#e65100"]
 }
 
+const glowColors = {
+  scream: "#4fc3ff",
+  bell: "#d36bff",
+  goldfish: "#ffb74d"
+};
+
+let currentGlowColor = glowColors.default;
+
 let currentWaveformColor = "#2196f3";
 let currentBarPalette = barGradientPalettes.scream;
 
@@ -223,7 +231,10 @@ function drawFrequencyBarsFrame() {
     gradient.addColorStop(1, currentBarPalette[2]); 
 
     waveformCtx.fillStyle = gradient;
-    waveformCtx.fillRect(x + 1, y, barWidth - 2, barHeight);``
+    waveformCtx.shadowBlur = 8 + (barHeight / height) * 20;
+    waveformCtx.shadowColor = currentGlowColor;
+    waveformCtx.fillRect(x + 1, y, barWidth - 2, barHeight);
+    waveformCtx.shadowBlur = 0;
   }
 }
 
@@ -293,6 +304,7 @@ function updateSoundSource() {
     timerSound.load();
   currentWaveformColor = waveFormColors[theme] || waveFormColors.scream;
   currentBarPalette = barGradientPalettes[theme] || barGradientPalettes.scream;
+  currentGlowColor = glowColors[theme] || glowColors.default;
 }
 soundThemeSelect.addEventListener("change", () => {
   updateSoundSource();
