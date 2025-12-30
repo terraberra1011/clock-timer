@@ -14,6 +14,22 @@
             <div id="clock-display">00:00:00</div>
          </section>
 
+         <div class="alarm-panel">
+            <h2>Alarm</h2>
+
+         <div class="alarm-row">
+            <label for="alarm-type">Time:</label>
+            <input type="time" id="alarm-time">
+         </div>
+
+         <div class="alarm-button">
+            <button id="alarm-toggle-btn">Arm Alarm</button>
+            <button id="alarm-snooze-btn" disabled>Snooze 5 min</button>
+            <button id="alarm-clear-btn" disabled>Clear</button>
+         </div>
+         <p id="alarm-status" class="alarm-status">Alarm is off.</p>
+
+         </div>
          <hr>
 
          <!--Timer Section-->

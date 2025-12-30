@@ -50,6 +50,51 @@ button {
   cursor: pointer;
 }
 
+.alarm.panel {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  background: #F7F7F7;
+}
+
+.alarm-panel h2 {
+  margin: 0 0 10px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.alarm-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.alarm-row input[type="time"] {
+  padding: 6px 8px;
+  font-size: 15px;
+}
+
+.alarm-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.alarm-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.alarm-status {
+  text-align: center;
+  margin: 0;
+  font-size: 14px;
+}
+
 .progress-wrapper {
   display: flex;
   justify-content: center;

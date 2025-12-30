@@ -1,11 +1,13 @@
 function updateClock() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2,"0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const seconds = String(now.getSeconds()).padStart(2, "0");
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
 
-    document.getElementById("clock-display").textContent =
+  document.getElementById("clock-display").textContent =
     `${hours}:${minutes}:${seconds}`;
+
+  checkAlarm();
 }
 
 let timerInterval = null; 
@@ -129,7 +131,15 @@ document.getElementById("reset-btn").addEventListener("click", resetTimer);
 
 const volumeSlider = document.getElementById("volume-slider");
 const timerSound = document.getElementById("timer-sound");
+const alarmTimeInput = document.getElementById("alarm-time");
+const alarmToggleBtn = document.getElementById("alarm-toggle-btn");
+const alarmSnoozeBtn = document.getElementById("alarm-snooze-btn");
+const alarmClearBtn = document.getElementById("alarm-clear-btn");
+const alarmStatus = document.getElementById("alarm-status");
 const soundThemeSelect = document.getElementById("sound-theme");
+let alarmArmed = false;
+let alarmTriggeredToday = false;
+let alarmTarget = null;
 let audioContext = null;
 let analyser = null;
 let dataArray = null;
@@ -155,6 +165,106 @@ let currentGlowColor = glowColors.default;
 
 let currentWaveformColor = "#2196f3";
 let currentBarPalette = barGradientPalettes.scream;
+
+function computeNextAlarmDate(timeValue) {
+  const [hh, mm] = timeValue.split(":").map(Number);
+
+  const now = new Date();
+  const target = new Date();
+
+  target.setHours(hh, mm, 0, 0);
+
+
+  if (target <= now) {
+    target.setDate(target.getDate() + 1);
+  }
+  return target;
+}
+
+function armAlarm() {
+  const timeValue = alarmTimeInput.value;
+
+  if (!timeValue) {
+    alert("Please set an alarm time first.");
+    return;
+  }
+
+  alarmTarget = computeNextAlarmDate(timeValue);
+  alarmArmed = true;
+  alarmTriggeredToday = false;
+
+  alarmToggleBtn.textContent = "Disarm Alarm";
+  alarmClearBtn.disabled = false;
+  alarmSnoozeBtn.disabled = true;
+  alarmStatus.textContent = `Alarm set for ${alarmTarget.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+}
+
+function disarmAlarm() {
+  alarmArmed = false;
+  alarmTarget = null;
+  alarmTriggeredToday = false;
+
+  alarmToggleBtn.textContent = "Arm Alarm";
+  alarmSnoozeBtn.disabled = true;
+  alarmClearBtn.disabled = true;
+  alarmStatus.textContent = "Alarm is off.";
+}
+
+function triggeredAlarm() {
+  alarmTriggeredToday = true;
+
+  alarmStatus.textContent = "⏰ ALARM! Snooze or Clear it.";
+  alarmSnoozeBtn.disabled = false;
+  alarmClearBtn.disabled = false;
+
+  playTimerSound();
+}
+
+function checkAlarm() {
+  if (!alarmArmed || !alarmTarget) return;
+  if (alarmTriggeredToday) return;
+
+  const now = new Date();
+
+  if (now >= alarmTarget) {
+    triggeredAlarm();
+  }
+}
+
+function snoozeAlarm(minutes = 5) {
+  if (!alarmArmed) return;
+
+  const now = new Date();
+  alarmTarget = new Date(now.getTime() + minutes * 60 * 1000);
+
+  alarmTriggeredToday = false;
+
+  alarmStatus.textContent = `Snoozed until ${alarmTarget.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+}
+
+function clearAlarm() {
+  if (timerSound) {
+    timerSound.pause();
+    timerSound.currentTime = 0;
+  }
+
+  disarmAlarm();
+  alarmTimeInput.value = "";
+}
+
+alarmToggleBtn.addEventListener("click", () => {
+  if (alarmArmed) disarmAlarm();
+  else armAlarm();
+});
+
+alarmSnoozeBtn.addEventListener("click", () => {
+  snoozeAlarm(5);
+});
+
+alarmClearBtn.addEventListener("click", () => {
+  clearAlarm();
+});
+
 
 function setupAudioContext() {
   if (audioContext) return;

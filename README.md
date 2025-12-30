@@ -52,6 +52,11 @@ A web app with a live digital clock and an interactive countdown timer featuring
 
 ## Update Log
 
+**12-30-25**
+- Fixed alarm arm/disarm flow (proper toggle, validation, and button states)
+- Corrected Date handling so alarm triggers at the set time
+- Snooze/Clear buttons initialize disabled to match alarm state
+
 **12-01-25**
 - Initial clock-timer code uploaded
 
